@@ -1,7 +1,7 @@
 export default function PrivacyPolicy() {
   return (
-    <main className="flex flex-col min-h-screen">
-      <h1 className="text-2xl font-bold">Privacy Policy - The Real Cost</h1>
+    <main>
+      <h1>Privacy Policy - The Real Cost</h1>
       <h2>What information does the extension obtain and how is it used?</h2>
       <p>
         No user data is collected. The Application does not send any information

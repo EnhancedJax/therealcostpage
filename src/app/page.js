@@ -1,8 +1,19 @@
-export default function Home() {
+import Field from "@/components/Field";
+import Header from "@/components/Header";
+import MainText from "@/components/MainText";
+import { fetchExchangeRates } from "@/lib/api";
+
+export default async function Home() {
+  const rates = await fetchExchangeRates();
+
   return (
-    <main className="flex flex-col min-h-screen items-center justify-center p-20">
-      <h1 className="text-2xl font-bold">TheRealCost</h1>
-      Website under construction
+    <main
+      id="main"
+      className="relative flex flex-col w-screen h-screen font-thin leading-tight tracking-tighter text-left"
+    >
+      <Header />
+      <MainText />
+      <Field rates={rates} />
     </main>
   );
 }
