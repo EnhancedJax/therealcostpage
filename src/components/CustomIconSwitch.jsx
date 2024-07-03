@@ -4,7 +4,12 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export default function CustomIconSwitch({ iconSVG, onChange, state = false }) {
+export default function CustomIconSwitch({
+  children,
+  iconSVG,
+  onChange,
+  state = false,
+}) {
   const [isActive, setIsActive] = useState(state);
 
   const handleClick = () => {
@@ -24,7 +29,7 @@ export default function CustomIconSwitch({ iconSVG, onChange, state = false }) {
 
   return (
     <motion.div
-      className="flex items-center justify-center p-1.5 border-2 border-black rounded-full cursor-pointer"
+      className={`flex items-center justify-center p-1.5 border-2 border-black rounded-full cursor-pointer relative`}
       onClick={handleClick}
       variants={variants}
       animate={isActive ? "active" : "inactive"}
@@ -44,6 +49,7 @@ export default function CustomIconSwitch({ iconSVG, onChange, state = false }) {
       >
         <Image src={iconSVG} width="20" height="20" alt="icon" />
       </motion.span>
+      {children}
     </motion.div>
   );
 }

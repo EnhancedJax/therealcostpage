@@ -1,7 +1,5 @@
-import { ConfigProvider } from "antd";
 import { Sora } from "next/font/google";
 import { AppProvider } from "../lib/context";
-import { ANTTHEME } from "./constants";
 import "./globals.css";
 
 const family = Sora({ subsets: ["latin"] });
@@ -15,11 +13,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <ConfigProvider theme={ANTTHEME}>
-        <AppProvider>
-          <body className={family.className}>{children}</body>
-        </AppProvider>
-      </ConfigProvider>
+      <AppProvider>
+        <body className={family.className}>{children}</body>
+      </AppProvider>
     </html>
   );
 }

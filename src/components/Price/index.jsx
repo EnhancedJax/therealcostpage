@@ -45,7 +45,7 @@ export default function Price({
       timeInMonths,
       percentOfTimeInYears,
     });
-  }, [data]);
+  }, [data?.hoursPerDay, data?.daysPerWeek, data?.hourlyWage, amount]);
 
   useEffect(() => {
     setPrice(
@@ -53,12 +53,13 @@ export default function Price({
         ? (amount / 1000).toFixed(format.fixed).toLocaleString() + "k"
         : amount.toFixed(format.fixed).toLocaleString()
     );
-  }, [amount]);
+  }, [amount, data?.currency]);
 
   return (
     <Popover
       content={
-        values?.hours && (
+        values?.hours &&
+        data.enabled && (
           <ContentContainer>
             <Flex gap="0" vertical justify="center">
               <ContextHeader>{`The real cost of $${price} is`}</ContextHeader>
@@ -75,7 +76,7 @@ export default function Price({
         } text-primary supershadow highlighted-money`}
         {...props}
       >
-        ${price}
+        {data.enabled ? `${values.hours.toFixed(2)} hours` : `$${price}`}
       </span>
     </Popover>
   );

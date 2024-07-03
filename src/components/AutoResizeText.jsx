@@ -43,7 +43,7 @@ const AutoResizeText = ({
 
   useEffect(() => {
     setTimeout(() => resizeText(), 100);
-  }, [data?.currency]);
+  }, [data?.currency, data?.enabled]);
 
   return (
     <div
