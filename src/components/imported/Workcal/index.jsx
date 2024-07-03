@@ -1,17 +1,13 @@
-import { Flex, theme } from "antd";
-import React from "react";
+import { Flex } from "antd";
 import { Box } from "./styles";
 
-const { useToken } = theme;
-
 function generateCalendar(days, daysPerWeek) {
-  const { token } = useToken();
   const totalDays = 30;
   const skipDays = 6; // Starts on a Saturday
   const calendarSize = 42; // 7x6 grid
   let calendar = new Array(calendarSize)
     .fill(null)
-    .map((_, index) => <Box key={index} color={token.colorBorderSecondary} />);
+    .map((_, index) => <Box key={index} color="#F0F0F0" />);
 
   // Define the positions of holidays in the 30-day calendar
   const holidays = {
@@ -29,14 +25,14 @@ function generateCalendar(days, daysPerWeek) {
     }
     if (holidays[daysPerWeek].includes(i + 1 - skipDays)) {
       // Holidays
-      calendar[i] = <Box key={i} color={token.colorBorder} />;
+      calendar[i] = <Box key={i} color="#D9D9D9" />;
     } else if (filledDays < days) {
       // Filled days
-      calendar[i] = <Box key={i} color={token.colorPrimary} />;
+      calendar[i] = <Box key={i} color="#1777FF" />;
       filledDays++;
     } else {
       // Unfilled days
-      calendar[i] = <Box key={i} color={token.colorBorder} />;
+      calendar[i] = <Box key={i} color="#D9D9D9" />;
     }
   }
 

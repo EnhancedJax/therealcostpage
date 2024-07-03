@@ -14,7 +14,6 @@ export default async function Home() {
       <Header />
       <MainText rates={rates} />
       <Field rates={rates} />
-      <div className="CircleBlur" />
     </main>
   );
 }

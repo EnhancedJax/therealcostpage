@@ -1,3 +1,4 @@
+import Splash from "@/components/Splash";
 import { Sora } from "next/font/google";
 import { AppProvider } from "../lib/context";
 import "./globals.css";
@@ -14,7 +15,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <AppProvider>
-        <body className={family.className}>{children}</body>
+        <body className={family.className}>
+          <Splash />
+          {children}
+        </body>
       </AppProvider>
     </html>
   );
