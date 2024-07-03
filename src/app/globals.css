@@ -4,7 +4,7 @@
 
 body {
   color: rgba(0, 0, 0, 0.8);
-  background-color: whitesmoke;
+  background: radial-gradient(circle at bottom center, whitesmoke, white);
   user-select: none;
 }
 
@@ -29,3 +29,34 @@ h2 {
 .supershadow {
   text-shadow: 0 0 12px rgba(252, 231, 204, 0.5);
 }
+
+/* .CircleBlur {
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  width: 30%;
+  height: 160px;
+  border-radius: 50%;
+  filter: blur(70px);
+  background-color: #ebcba4;
+  transform: translate(-50%, -50%);
+  z-index: -100;
+}
+.CircleBlur::before {
+  content: "";
+  position: absolute;
+  top: 80px;
+  left: 0px;
+  width: 50%;
+  height: 60px;
+  background-color: #1777ff;
+} */
+/* .CircleBlur::after {
+  content: "";
+  position: absolute;
+  top: 40px;
+  right: 50%;
+  width: 20%;
+  height: 30px;
+  background-color: red;
+} */

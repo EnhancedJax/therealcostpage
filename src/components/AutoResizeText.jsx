@@ -1,5 +1,6 @@
 "use client";
 
+import { useAppContext } from "@/lib/context";
 import { useEffect, useRef, useState } from "react";
 
 const AutoResizeText = ({
@@ -10,34 +11,39 @@ const AutoResizeText = ({
 }) => {
   const containerRef = useRef(null);
   const [fontSize, setFontSize] = useState(initialFontSize);
+  const { data } = useAppContext();
+
+  const resizeText = () => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    let currentFontSize = initialFontSize;
+    container.style.fontSize = `${currentFontSize}px`;
+
+    while (
+      (container.scrollHeight > container.clientHeight ||
+        container.scrollWidth > container.clientWidth) &&
+      currentFontSize > minFontSize
+    ) {
+      currentFontSize--;
+      container.style.fontSize = `${currentFontSize}px`;
+    }
+
+    setFontSize(currentFontSize);
+  };
 
   useEffect(() => {
-    const resizeText = () => {
-      const container = containerRef.current;
-      if (!container) return;
-
-      let currentFontSize = initialFontSize;
-      container.style.fontSize = `${currentFontSize}px`;
-
-      while (
-        (container.scrollHeight > container.clientHeight ||
-          container.scrollWidth > container.clientWidth) &&
-        currentFontSize > minFontSize
-      ) {
-        currentFontSize--;
-        container.style.fontSize = `${currentFontSize}px`;
-      }
-
-      setFontSize(currentFontSize);
-    };
-
-    resizeText();
     window.addEventListener("resize", resizeText);
+    resizeText();
 
     return () => {
       window.removeEventListener("resize", resizeText);
     };
-  }, [initialFontSize, minFontSize]);
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => resizeText(), 100);
+  }, [data?.currency]);
 
   return (
     <div

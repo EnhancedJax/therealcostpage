@@ -1,20 +1,39 @@
 "use client";
 
+import { defaultPrices } from "@/app/constants";
 import { useAppContext } from "@/lib/context";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import AutoResizeText from "./AutoResizeText";
-import Price from "./Price";
+import Price from "./Price/index.jsx";
 
-export default function MainText() {
+export default function MainText({ rates }) {
+  const [prices, setPrices] = useState(defaultPrices);
   const { data } = useAppContext();
+
+  useEffect(() => {
+    const currency = data.currency;
+    if (!rates || !currency) return;
+    setPrices(
+      defaultPrices.map((price) => {
+        return price * rates[currency];
+      })
+    );
+  }, [data?.currency]);
 
   const str = [
     "What is the real cost of your new phone, which costs",
-    <Price key="price1" price="999" nomargin />,
-    "? TheRealCost is a Chrome extension that converts prices like",
-    <Price key="price2" price="32.89" />,
+    <Price key="price1" amount={prices[0]} nomargin />,
+    "? Or your new",
+    <Price key="price4" amount={prices[1]} />,
+    "laptop? TheRealCost is a Chrome extension that converts prices like",
+    <Price
+      key="price2"
+      amount={prices[2]}
+      format={{ fixed: 2, unit: false }}
+    />,
     "or",
-    <Price key="price3" price="4.1k" />,
+    <Price key="price3" amount={prices[3]} format={{ fixed: 1, unit: true }} />,
     "on websites to hours of work needed to affor them. Try it out now!",
   ];
 

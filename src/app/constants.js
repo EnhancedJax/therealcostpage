@@ -16,4 +16,6 @@ const defaultValues = {
   enabled: false,
 };
 
-export { ANTTHEME, defaultValues };
+const defaultPrices = [999, 1500, 32.89, 4100];
+
+export { ANTTHEME, defaultPrices, defaultValues };

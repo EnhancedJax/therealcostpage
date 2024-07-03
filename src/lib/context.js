@@ -18,7 +18,8 @@ const AppProvider = ({ children }) => {
   const [data, setData] = useState(defaultValues);
 
   const updateData = (key, value) => {
-    setData({ ...data, [key]: value });
+    const newData = { ...data, [key]: value };
+    setData(newData);
   };
 
   return (

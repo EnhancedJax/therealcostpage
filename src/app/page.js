@@ -9,11 +9,12 @@ export default async function Home() {
   return (
     <main
       id="main"
-      className="relative flex flex-col w-screen h-screen font-thin leading-tight tracking-tighter text-left"
+      className="relative flex flex-col w-screen h-screen overflow-hidden font-thin leading-tight tracking-tighter text-left"
     >
       <Header />
-      <MainText />
+      <MainText rates={rates} />
       <Field rates={rates} />
+      <div className="CircleBlur" />
     </main>
   );
 }
