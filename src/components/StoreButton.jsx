@@ -9,7 +9,9 @@ export default function StoreButton({ children }) {
     <div className="flex items-center justify-center gap-4 py-6">
       <CustomButton
         iconSVG={StoreIcon}
-        onClick={() => window.open(WEBSTORE_LINK, "_blank")}
+        onClick={() => {
+          window.open(WEBSTORE_LINK, "_blank");
+        }}
       >
         {children}
       </CustomButton>
