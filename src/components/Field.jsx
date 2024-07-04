@@ -85,7 +85,7 @@ export default function Field({ rates }) {
               max={6}
               changeOnWheel={true}
               onChange={(value) => {
-                updateData("daysPerWeek", value);
+                if (value > 3 && value < 7) updateData("daysPerWeek", value);
               }}
             />
           }
@@ -113,6 +113,7 @@ export default function Field({ rates }) {
         onChange={(enabled) => handleToggle(enabled)}
         iconSVG={PuzzleIcon}
         state={data.enabled}
+        cooldown={1}
       ></CustomIconSwitch>
     </div>
   );

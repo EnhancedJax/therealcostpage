@@ -11,9 +11,16 @@ export async function fetchExchangeRates() {
       throw new Error("Failed to fetch exchange rates");
     }
 
-    const data = await response.json();
-
-    return data.rates;
+    const text = await response.text();
+    const match = text.match(
+      /{"result":"success","provider":"https:\/\/www.exc.*}/
+    );
+    if (match) {
+      const data = JSON.parse(match[0]);
+      return data.rates;
+    } else {
+      throw new Error("Failed to parse exchange rates");
+    }
   } catch (error) {
     console.error(error.message);
     return {

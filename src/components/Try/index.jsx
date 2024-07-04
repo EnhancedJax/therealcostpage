@@ -2,64 +2,84 @@
 
 import { calculate } from "@/lib/calc";
 import { useAppContext } from "@/lib/context";
-import { Skeleton, Space } from "antd";
+import { Flex, Popover, Skeleton, Space } from "antd";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import BottomLeftArrow from "../../../public/bottomLeft.svg";
 import Logo from "../../../public/icon.svg";
 import LeftArrow from "../../../public/left.svg";
 import Phone from "../../../public/phone.png";
 import SkeletonBrowser from "../imported/SkeletonBrowser";
+import SmartInfo from "../imported/SmartInfo";
+import { animateHours, animatePrice } from "./animations";
 import {
   BrowserViewContainer,
+  ContextHeader,
   ExtensionTip,
+  Header,
   LargePrice,
+  PopoverContentContainer,
+  PopoverPositioner,
   PulseCircle,
   TipText,
   Underline,
 } from "./styles";
+import { useAnimations } from "./useAnimations";
 
 export default function Try({ rates }) {
   const { data } = useAppContext();
   const [showNewPrice, setShowNewPrice] = useState(false);
-  const [result, setResult] = useState({});
+  const [values, setValues] = useState({});
   const [amount, setAmount] = useState(0);
+  const [isFirstEnable, setIsFirstEnable] = useState(true);
+
+  const {
+    pulseScope,
+    underlineScope,
+    containerScope,
+    tooltipScope,
+    runAnimations,
+  } = useAnimations(isFirstEnable, setIsFirstEnable, setShowNewPrice);
 
   useEffect(() => {
     const amountNum = (999 * rates[data.currency]).toFixed(0);
     setAmount(amountNum);
-    setResult(
+    setValues(
       calculate(amountNum, data.hourlyWage, data.hoursPerDay, data.daysPerWeek)
     );
-  }, [data?.hoursPerDay, data?.daysPerWeek, data?.hourlyWage, amount]);
+  }, [
+    data.hoursPerDay,
+    data.daysPerWeek,
+    data.hourlyWage,
+    data.currency,
+    amount,
+  ]);
 
-  const animateTooltip = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-        delay: 4,
-        ease: "easeInOut",
-      },
-    },
-  };
+  useEffect(() => {
+    runAnimations(data.enabled);
+  }, [data.enabled]);
 
   return (
     <motion.div
-      className="flex flex-col items-center justify-center flex-grow w-full pt-10 -z-10"
+      ref={containerScope}
+      className="flex flex-col items-center justify-center flex-grow w-full pt-10"
       initial={{ paddingRight: 0, y: 500, opacity: 0 }}
-      animate={{ paddingRight: 100, y: 0, opacity: 1 }}
+      animate={{ y: 0, opacity: 1 }}
       transition={{
-        paddingRight: { delay: 4 },
         y: { duration: 1.2, type: "spring" },
       }}
     >
-      <div
+      <motion.div
         style={{
           width: "640px",
           height: "480px",
+        }}
+        drag
+        dragConstraints={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
         }}
       >
         <SkeletonBrowser>
@@ -70,6 +90,7 @@ export default function Try({ rates }) {
                 style={{ objectFit: "contain" }}
                 width="212"
                 height="273"
+                alt="Phone"
               />
             </div>
             <div className="w-full">
@@ -80,51 +101,48 @@ export default function Try({ rates }) {
               <LargePrice>
                 <AnimatePresence mode="wait">
                   {!showNewPrice ? (
-                    <motion.p
-                      key="price"
-                      animate={{
-                        x: 0,
-                        scale: 1,
-                        opacity: 1,
-                        transformOrigin: "bottom right",
-                      }}
-                      exit={{ x: 5, scale: 0, opacity: 0 }}
-                      transition={{ duration: 0.5, type: "spring" }}
-                    >
+                    <motion.p key="price" {...animatePrice}>
                       {data.currency} {amount}
                     </motion.p>
                   ) : (
-                    <motion.p
-                      key="hours"
-                      initial={{
-                        x: -20,
-                        scale: 0,
-                        opacity: 0,
-                        transformOrigin: "bottom left",
-                      }}
-                      animate={{ x: 0, scale: 1, opacity: 1 }}
-                      transition={{ duration: 0.5, type: "spring" }}
-                    >
-                      {result.hours} hours
+                    <motion.p key="hours" {...animateHours}>
+                      {values.hours.toFixed(0)} hours
                     </motion.p>
                   )}
                 </AnimatePresence>
-                <Underline
-                  initial={{ width: 0 }}
-                  animate={{ width: "100%" }}
-                  transition={{ duration: 0.4, delay: 3 }}
-                />
+                <Popover
+                  content={
+                    values?.hours && (
+                      <PopoverContentContainer>
+                        <Flex gap="0" vertical justify="center">
+                          <ContextHeader>{`The real cost of ${data.currency} ${amount} is`}</ContextHeader>
+                          <Header>{values?.hours?.toFixed(2)} hours</Header>
+                          <SmartInfo values={values} />
+                        </Flex>
+                      </PopoverContentContainer>
+                    )
+                  }
+                  open={showNewPrice}
+                  placement="bottom"
+                >
+                  <PopoverPositioner />
+                </Popover>
+                <Underline ref={underlineScope} />
                 <ExtensionTip
-                  variants={animateTooltip}
-                  initial="hidden"
-                  animate="visible"
+                  ref={tooltipScope}
+                  initial={{ opacity: 0 }}
                   style={{
                     top: "-32px",
                     right: "0px",
                     transform: "translateX(100%)",
                   }}
                 >
-                  <Image src={LeftArrow} width="112" height="11" />
+                  <Image
+                    src={LeftArrow}
+                    width="112"
+                    height="11"
+                    alt="leftarrow"
+                  />
                   <TipText>
                     Des
                     <br />
@@ -141,31 +159,11 @@ export default function Try({ rates }) {
             width="32"
             height="32"
             className="absolute z-20 top-6 right-10"
+            alt="Extension Logo"
           />
-          <PulseCircle
-            animate={{
-              opacity: [0, 1, 0],
-              scale: [50, 1, 40],
-              display: "none",
-            }}
-            transition={{ duration: 2, delay: 1 }}
-            onAnimationComplete={() => setShowNewPrice(true)}
-          />
-          <ExtensionTip
-            variants={animateTooltip}
-            initial="hidden"
-            animate="visible"
-            style={{
-              top: "16px",
-              right: "48px",
-              transform: "translate(100%, -100%)",
-            }}
-          >
-            <Image src={BottomLeftArrow} width="94" height="34" />
-            <TipText>Config</TipText>
-          </ExtensionTip>
+          <PulseCircle ref={pulseScope} />
         </SkeletonBrowser>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }

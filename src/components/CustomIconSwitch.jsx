@@ -1,20 +1,31 @@
 "use client";
 
+import { Popover } from "antd";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function CustomIconSwitch({
   children,
   iconSVG,
   onChange,
   state = false,
+  cooldown = 0,
 }) {
   const [isActive, setIsActive] = useState(state);
+  const [popoverVisible, setPopoverVisible] = useState(false);
+  const lastClickTime = useRef(0);
 
   const handleClick = () => {
-    setIsActive(!isActive);
-    onChange(!isActive);
+    const currentTime = Date.now();
+    if (currentTime - lastClickTime.current >= cooldown * 1000) {
+      setIsActive(!isActive);
+      onChange(!isActive);
+      lastClickTime.current = currentTime;
+    } else {
+      setPopoverVisible(true);
+      setTimeout(() => setPopoverVisible(false), 1000); // Hide popover after 1 second
+    }
   };
 
   useEffect(() => {
@@ -28,28 +39,30 @@ export default function CustomIconSwitch({
   };
 
   return (
-    <motion.div
-      className={`flex items-center justify-center p-1.5 border-2 border-black rounded-full cursor-pointer relative`}
-      onClick={handleClick}
-      variants={variants}
-      animate={isActive ? "active" : "inactive"}
-      whileTap="onTap"
-      style={{
-        backgroundColor: isActive ? "black" : "white",
-        perspective: "1000px",
-      }}
-    >
-      <motion.span
+    <Popover content="Cooldown..." visible={popoverVisible} trigger="click">
+      <motion.div
+        className={`flex items-center justify-center p-1.5 border-2 border-black rounded-full cursor-pointer relative`}
+        onClick={handleClick}
         variants={variants}
         animate={isActive ? "active" : "inactive"}
+        whileTap="onTap"
         style={{
-          filter: isActive ? "invert(1)" : "none",
+          backgroundColor: isActive ? "black" : "white",
+          perspective: "1000px",
         }}
-        className="pointer-events-none"
       >
-        <Image src={iconSVG} width="20" height="20" alt="icon" />
-      </motion.span>
-      {children}
-    </motion.div>
+        <motion.span
+          variants={variants}
+          animate={isActive ? "active" : "inactive"}
+          style={{
+            filter: isActive ? "invert(1)" : "none",
+          }}
+          className="pointer-events-none"
+        >
+          <Image src={iconSVG} width="20" height="20" alt="icon_switch" />
+        </motion.span>
+        {children}
+      </motion.div>
+    </Popover>
   );
 }

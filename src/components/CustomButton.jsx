@@ -10,7 +10,7 @@ export default function CustomButton({ children, iconSVG }) {
     },
     hover: {
       scale: 1.05,
-      y: 8,
+      y: -8,
       transition: {
         duration: 0.2,
       },
