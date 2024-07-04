@@ -18,7 +18,7 @@ const tourSteps = (ref1, ref2) => [
   },
   {
     title: "TheRealCost toggle",
-    description: "Use the switch to the extension!",
+    description: "This is the switch to the extension! Turn it on to start it!",
     target: () => ref2.current,
   },
 ];

@@ -129,7 +129,7 @@ export default function Try({ rates }) {
                   ref={tooltipScope}
                   initial={{ opacity: 0 }}
                   style={{
-                    top: "-32px",
+                    top: "-50px",
                     right: "0px",
                     transform: "translateX(100%)",
                   }}
@@ -141,10 +141,12 @@ export default function Try({ rates }) {
                     alt="leftarrow"
                   />
                   <TipText>
-                    Des
+                    "Hmmm, I wonder how much this costs in hours?"
                     <br />
                     <br />
-                    <b>Hov</b>
+                    Prices on websites are detected and replaced with hours of
+                    work needed to afford them. You can hover the highlighted
+                    prices to visualise the time cost!
                   </TipText>
                 </ExtensionTip>
               </LargePrice>
