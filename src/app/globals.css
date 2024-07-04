@@ -6,16 +6,13 @@ body {
   color: rgba(0, 0, 0, 0.8);
   background: radial-gradient(circle at bottom center, whitesmoke, white);
   user-select: none;
+  font-weight: 300;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-}
-
-p {
-  @apply font-light;
 }
 
 h1 {

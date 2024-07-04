@@ -1,5 +1,6 @@
 import Field from "@/components/Field";
 import Header from "@/components/Header";
+import Try from "@/components/Try";
 import { fetchExchangeRates } from "@/lib/api";
 
 export default async function Home() {
@@ -8,10 +9,10 @@ export default async function Home() {
   return (
     <main
       id="main"
-      className="relative flex flex-col w-screen h-screen overflow-hidden font-thin leading-tight tracking-tighter text-left"
+      className="relative flex flex-col w-screen h-screen overflow-hidden text-left"
     >
+      <Try rates={rates} />
       <Header />
-      {/* <MainText rates={rates} /> */}
       <Field rates={rates} />
     </main>
   );

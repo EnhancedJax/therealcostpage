@@ -73,7 +73,7 @@ export default function Price({
       <span
         className={`font-bold ${
           nomargin ? "" : "mr-7"
-        } text-primary supershadow highlighted-money`}
+        } text-primary supershadow`}
         {...props}
       >
         {data.enabled ? `${values.hours.toFixed(2)} hours` : `$${price}`}

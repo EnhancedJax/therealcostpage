@@ -1,9 +1,8 @@
-import Splash from "@/components/Splash";
-import { Sora } from "next/font/google";
+import { Kumbh_Sans } from "next/font/google";
 import { AppProvider } from "../lib/context";
 import "./globals.css";
 
-const family = Sora({ subsets: ["latin"] });
+const family = Kumbh_Sans({ subsets: ["latin"] });
 
 export const metadata = {
   title: "The Real Cost",
@@ -16,7 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <AppProvider>
         <body className={family.className}>
-          <Splash />
+          {/* <Splash /> */}
           {children}
         </body>
       </AppProvider>

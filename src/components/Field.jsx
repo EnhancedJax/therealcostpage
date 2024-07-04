@@ -22,7 +22,7 @@ export default function Field({ rates }) {
   };
 
   return (
-    <div className="z-20 flex flex-wrap items-center justify-center px-20 py-10 mx-auto bg-white border lg:px-4 border-t-black border-x-black rounded-t-2xl min-w-min">
+    <div className="z-20 flex flex-wrap items-center justify-center px-20 py-10 mx-auto bg-white shadow-2xl lg:px-4 rounded-t-2xl min-w-min">
       <p className="flex mr-4 md:flex-wrap md:justify-center">
         <FieldText>If you earn</FieldText>
         <FieldInput
@@ -53,7 +53,7 @@ export default function Field({ rates }) {
               max={99999}
               changeOnWheel={true}
               onChange={(value) => {
-                updateData("hourlyWage", value);
+                if (value > 0) updateData("hourlyWage", value);
               }}
             />
           }
@@ -69,7 +69,7 @@ export default function Field({ rates }) {
               max={24}
               changeOnWheel={true}
               onChange={(value) => {
-                updateData("hoursPerDay", value);
+                if (value > 0) updateData("hoursPerDay", value);
               }}
             />
           }
