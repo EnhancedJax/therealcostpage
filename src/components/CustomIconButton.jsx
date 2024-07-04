@@ -24,15 +24,7 @@ export default function CustomIconButton({ iconSVG, onClick, ...props }) {
       onClick={onClick}
       {...props}
     >
-      {iconSVG && (
-        <Image
-          src={iconSVG}
-          width="20"
-          height="20"
-          alt="icon"
-          className="pointer-events-none"
-        />
-      )}
+      {iconSVG && <Image src={iconSVG} width="20" height="20" alt="icon" />}
     </motion.button>
   );
 }

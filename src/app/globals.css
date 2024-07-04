@@ -27,6 +27,10 @@ h2 {
   text-shadow: 0 0 12px rgba(252, 231, 204, 0.5);
 }
 
+img {
+  pointer-events: none;
+}
+
 /* .CircleBlur {
   position: absolute;
   top: 0px;

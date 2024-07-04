@@ -2,7 +2,11 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-export default function CustomButton({ children, iconSVG }) {
+export default function CustomButton({
+  children,
+  iconSVG,
+  onClick = () => {},
+}) {
   const buttonVariants = {
     initial: {
       scale: 1,
@@ -27,6 +31,7 @@ export default function CustomButton({ children, iconSVG }) {
       whileHover="hover"
       whileTap="tap"
       initial="initial"
+      onClick={onClick}
     >
       {iconSVG && <Image src={iconSVG} width="20" height="20" alt="icon" />}
       {children}

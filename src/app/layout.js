@@ -1,5 +1,4 @@
 import { Kumbh_Sans } from "next/font/google";
-import { AppProvider } from "../lib/context";
 import "./globals.css";
 
 const family = Kumbh_Sans({ subsets: ["latin"] });
@@ -13,12 +12,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <AppProvider>
-        <body className={family.className}>
-          {/* <Splash /> */}
-          {children}
-        </body>
-      </AppProvider>
+      <body className={family.className}>
+        {/* <Splash /> */}
+        {children}
+      </body>
     </html>
   );
 }

@@ -32,6 +32,7 @@ export default function Try({ rates }) {
   const [values, setValues] = useState({});
   const [amount, setAmount] = useState(0);
   const [isFirstEnable, setIsFirstEnable] = useState(true);
+  const [start, setStart] = useState(false);
 
   const {
     pulseScope,
@@ -39,7 +40,13 @@ export default function Try({ rates }) {
     containerScope,
     tooltipScope,
     runAnimations,
-  } = useAnimations(isFirstEnable, setIsFirstEnable, setShowNewPrice);
+  } = useAnimations(
+    start,
+    setStart,
+    isFirstEnable,
+    setIsFirstEnable,
+    setShowNewPrice
+  );
 
   useEffect(() => {
     const amountNum = (999 * rates[data.currency]).toFixed(0);
@@ -56,18 +63,14 @@ export default function Try({ rates }) {
   ]);
 
   useEffect(() => {
-    runAnimations(data.enabled);
-  }, [data.enabled]);
+    runAnimations(data.enabled, data.tourFinished);
+  }, [data.enabled, data.tourFinished]);
 
   return (
     <motion.div
       ref={containerScope}
       className="flex flex-col items-center justify-center flex-grow w-full pt-10"
       initial={{ paddingRight: 0, y: 500, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{
-        y: { duration: 1.2, type: "spring" },
-      }}
     >
       <motion.div
         style={{
@@ -85,13 +88,7 @@ export default function Try({ rates }) {
         <SkeletonBrowser>
           <BrowserViewContainer>
             <div className="p-5">
-              <Image
-                src={Phone}
-                style={{ objectFit: "contain" }}
-                width="212"
-                height="273"
-                alt="Phone"
-              />
+              <Image src={Phone} width="212" height="273" alt="Phone" />
             </div>
             <div className="w-full">
               <Space>

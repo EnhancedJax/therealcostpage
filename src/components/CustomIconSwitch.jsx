@@ -39,7 +39,7 @@ export default function CustomIconSwitch({
   };
 
   return (
-    <Popover content="Cooldown..." visible={popoverVisible} trigger="click">
+    <Popover content="Cooldown..." open={popoverVisible} trigger="click">
       <motion.div
         className={`flex items-center justify-center p-1.5 border-2 border-black rounded-full cursor-pointer relative`}
         onClick={handleClick}
@@ -57,7 +57,6 @@ export default function CustomIconSwitch({
           style={{
             filter: isActive ? "invert(1)" : "none",
           }}
-          className="pointer-events-none"
         >
           <Image src={iconSVG} width="20" height="20" alt="icon_switch" />
         </motion.span>

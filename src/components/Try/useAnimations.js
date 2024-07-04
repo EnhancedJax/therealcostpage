@@ -1,6 +1,8 @@
 import { useAnimate } from "framer-motion";
 
 export function useAnimations(
+  start,
+  setStart,
   isFirstEnable,
   setIsFirstEnable,
   setShowNewPrice
@@ -10,7 +12,18 @@ export function useAnimations(
   const [containerScope, animateContainer] = useAnimate();
   const [tooltipScope, animateTooltip] = useAnimate();
 
-  const runAnimations = async (enabled) => {
+  const runAnimations = async (enabled, tourFinished) => {
+    if (!start) {
+      if (tourFinished) {
+        setStart(true);
+        animateContainer(
+          containerScope.current,
+          { y: 0, opacity: 1 },
+          { duration: 1.2, type: "spring" }
+        );
+      }
+      return;
+    }
     if (enabled) {
       if (isFirstEnable) {
         await animatePulse(
