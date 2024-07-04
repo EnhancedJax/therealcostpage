@@ -1,6 +1,5 @@
 import Field from "@/components/Field";
 import Header from "@/components/Header";
-import MainText from "@/components/MainText";
 import { fetchExchangeRates } from "@/lib/api";
 
 export default async function Home() {
@@ -12,7 +11,7 @@ export default async function Home() {
       className="relative flex flex-col w-screen h-screen overflow-hidden font-thin leading-tight tracking-tighter text-left"
     >
       <Header />
-      <MainText rates={rates} />
+      {/* <MainText rates={rates} /> */}
       <Field rates={rates} />
     </main>
   );

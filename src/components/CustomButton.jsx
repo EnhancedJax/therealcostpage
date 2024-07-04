@@ -10,16 +10,9 @@ export default function CustomButton({ children, iconSVG }) {
     },
     hover: {
       scale: 1.05,
-      y: [0, -8, 0],
+      y: 8,
       transition: {
-        scale: {
-          duration: 0.1,
-        },
-        y: {
-          duration: 0.5,
-          repeat: Infinity,
-          ease: "easeInOut",
-        },
+        duration: 0.2,
       },
     },
     tap: {
