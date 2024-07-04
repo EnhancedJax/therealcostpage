@@ -141,7 +141,7 @@ export default function Try({ rates }) {
                     alt="leftarrow"
                   />
                   <TipText>
-                    "Hmmm, I wonder how much this costs in hours?"
+                    &quot;Hmmm, I wonder how much this costs in hours?&quot;
                     <br />
                     <br />
                     Prices on websites are detected and replaced with hours of
