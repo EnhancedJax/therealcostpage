@@ -23,6 +23,7 @@ const tourSteps = (ref1, ref2) => [
   },
 ];
 
-const WEBSTORE_LINK = "https://chrome.google.com/webstore/detail";
+const WEBSTORE_LINK =
+  "https://chromewebstore.google.com/detail/the-real-cost/aigjgdabjgnoelaapnkhlemoemkfajeb";
 
 export { WEBSTORE_LINK, defaultPrices, defaultValues, tourSteps };
