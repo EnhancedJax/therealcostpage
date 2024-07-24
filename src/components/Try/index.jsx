@@ -63,8 +63,8 @@ export default function Try({ rates }) {
   ]);
 
   useEffect(() => {
-    runAnimations(data.enabled, data.tourFinished);
-  }, [data.enabled, data.tourFinished]);
+    runAnimations(data.enabled);
+  }, [data.enabled]);
 
   return (
     <motion.div

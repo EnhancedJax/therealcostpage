@@ -4,7 +4,7 @@ const defaultValues = {
   hoursPerDay: 8,
   daysPerWeek: 5,
   enabled: false,
-  tourFinished: false,
+  tourFinished: true,
 };
 
 const defaultPrices = [999, 1500, 32.89, 4100];

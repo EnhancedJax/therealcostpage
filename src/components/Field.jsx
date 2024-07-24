@@ -35,7 +35,10 @@ export default function Field({ rates }) {
 
   return (
     <div className="relative z-20 flex flex-wrap items-center justify-center px-20 py-10 mx-auto bg-white shadow-2xl lg:px-4 rounded-t-2xl min-w-min">
-      <p ref={ref1} className="flex mr-4 md:flex-wrap md:justify-center">
+      <h2
+        ref={ref1}
+        className="flex mr-4 text-base font-normal md:flex-wrap md:justify-center"
+      >
         <FieldText>If you earn</FieldText>
         <FieldInput
           input={
@@ -105,7 +108,7 @@ export default function Field({ rates }) {
           {data.daysPerWeek} days
         </FieldInput>
         <FieldText nospace>per week...</FieldText>
-      </p>
+      </h2>
       <div ref={ref2}>
         <CustomIconSwitch
           onChange={(enabled) => handleToggle(enabled)}

@@ -12,16 +12,14 @@ export function useAnimations(
   const [containerScope, animateContainer] = useAnimate();
   const [tooltipScope, animateTooltip] = useAnimate();
 
-  const runAnimations = async (enabled, tourFinished) => {
+  const runAnimations = async (enabled) => {
     if (!start) {
-      if (tourFinished) {
-        setStart(true);
-        animateContainer(
-          containerScope.current,
-          { y: 0, opacity: 1 },
-          { duration: 1.2, type: "spring" }
-        );
-      }
+      setStart(true);
+      animateContainer(
+        containerScope.current,
+        { y: 0, opacity: 1 },
+        { duration: 1.2, type: "spring" }
+      );
       return;
     }
     if (enabled) {

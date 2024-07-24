@@ -1,8 +1,7 @@
 "use client";
 
 import { defaultValues } from "@/app/constants";
-import { useRouter } from "next/navigation";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 // Create a new context
 const AppContext = createContext();
@@ -17,12 +16,17 @@ const useAppContext = () => {
 
 const AppProvider = ({ children }) => {
   const [data, setData] = useState(defaultValues);
-  const router = useRouter();
 
   const updateData = (key, value) => {
     const newData = { ...data, [key]: value };
     setData(newData);
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      updateData("tourFinished", false);
+    }, 1000);
+  }, []);
 
   return (
     <AppContext.Provider value={{ data, updateData }}>
